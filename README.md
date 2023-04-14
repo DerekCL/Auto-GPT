@@ -38,6 +38,7 @@ Your support is greatly appreciated
   - [💾 Installation](#-installation)
   - [🔧 Usage](#-usage)
     - [Logs](#logs)
+    - [Command Line Arguments](#command-line-arguments)
   - [🗣️ Speech Mode](#️-speech-mode)
   - [🔍 Google API Keys Configuration](#-google-api-keys-configuration)
     - [Setting up environment variables](#setting-up-environment-variables)
@@ -46,7 +47,7 @@ Your support is greatly appreciated
     - [Setting up environment variables](#setting-up-environment-variables-1)
   - [Setting Your Cache Type](#setting-your-cache-type)
   - [View Memory Usage](#view-memory-usage)
-  - [🧠 Memory pre-seeding](#memory-pre-seeding)
+  - [🧠 Memory pre-seeding](#-memory-pre-seeding)
   - [💀 Continuous Mode ⚠️](#-continuous-mode-️)
   - [GPT3.5 ONLY Mode](#gpt35-only-mode)
   - [🖼 Image Generation](#-image-generation)
@@ -70,7 +71,6 @@ Your support is greatly appreciated
   - [vscode + devcontainer](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers): It has been configured in the .devcontainer folder and can be used directly
   - [Python 3.8 or later](https://www.tutorialspoint.com/how-to-install-python-in-windows)
 - [OpenAI API key](https://platform.openai.com/account/api-keys)
-
 
 Optional:
 
@@ -107,15 +107,16 @@ pip install -r requirements.txt
 ```
 
 5. Rename `.env.template` to `.env` and fill in your `OPENAI_API_KEY`. If you plan to use Speech Mode, fill in your `ELEVEN_LABS_API_KEY` as well.
-  - Obtain your OpenAI API key from: https://platform.openai.com/account/api-keys.
-  - Obtain your ElevenLabs API key from: https://elevenlabs.io. You can view your xi-api-key using the "Profile" tab on the website.
-  - If you want to use GPT on an Azure instance, set `USE_AZURE` to `True` and then:
-    - Rename `azure.yaml.template` to `azure.yaml` and provide the relevant `azure_api_base`, `azure_api_version` and all of the deployment ids for the relevant models in the `azure_model_map` section:
-      - `fast_llm_model_deployment_id` - your gpt-3.5-turbo or gpt-4 deployment id
-      - `smart_llm_model_deployment_id` - your gpt-4 deployment id
-      - `embedding_model_deployment_id` - your text-embedding-ada-002 v2 deployment id
-    - Please specify all of these values as double quoted strings
-    - details can be found here: https://pypi.org/project/openai/ in the `Microsoft Azure Endpoints` section and here: https://learn.microsoft.com/en-us/azure/cognitive-services/openai/tutorials/embeddings?tabs=command-line for the embedding model.
+
+- Obtain your OpenAI API key from: https://platform.openai.com/account/api-keys.
+- Obtain your ElevenLabs API key from: https://elevenlabs.io. You can view your xi-api-key using the "Profile" tab on the website.
+- If you want to use GPT on an Azure instance, set `USE_AZURE` to `True` and then:
+  - Rename `azure.yaml.template` to `azure.yaml` and provide the relevant `azure_api_base`, `azure_api_version` and all of the deployment ids for the relevant models in the `azure_model_map` section:
+    - `fast_llm_model_deployment_id` - your gpt-3.5-turbo or gpt-4 deployment id
+    - `smart_llm_model_deployment_id` - your gpt-4 deployment id
+    - `embedding_model_deployment_id` - your text-embedding-ada-002 v2 deployment id
+  - Please specify all of these values as double quoted strings
+  - details can be found here: https://pypi.org/project/openai/ in the `Microsoft Azure Endpoints` section and here: https://learn.microsoft.com/en-us/azure/cognitive-services/openai/tutorials/embeddings?tabs=command-line for the embedding model.
 
 ## 🔧 Usage
 
@@ -128,7 +129,6 @@ python scripts/main.py
 
 2. After each of action, enter 'y' to authorise command, 'y -N' to run N continuous commands, 'n' to exit program, or enter additional feedback for the AI.
 
-
 ### Logs
 
 You will find activity and error logs in the folder `./output/logs`
@@ -138,12 +138,16 @@ To output debug logs:
 ```
 python scripts/main.py --debug
 ```
+
 ### Command Line Arguments
+
 Here are some common arguments you can use when running Auto-GPT:
+
 > Replace anything in angled brackets (<>) to a value you want to specify
-* `python scripts/main.py --help` to see a list of all available command line arguments.
-* `python scripts/main.py --ai-settings <filename>` to run Auto-GPT with a different AI Settings file.
-* `python scripts/main.py --use-memory  <memory-backend>` to specify one of 3 memory backends: `local`, `redis`, `pinecone` or 'no_memory'.
+
+- `python scripts/main.py --help` to see a list of all available command line arguments.
+- `python scripts/main.py --ai-settings <filename>` to run Auto-GPT with a different AI Settings file.
+- `python scripts/main.py --use-memory  <memory-backend>` to specify one of 3 memory backends: `local`, `redis`, `pinecone` or 'no_memory'.
 
 > **NOTE**: There are shorthands for some of these flags, for example `-m` for `--use-memory`. Use `python scripts/main.py --help` for more information
 
@@ -239,6 +243,7 @@ Pinecone enables the storage of vast amounts of vector-based memory, allowing fo
 ### Setting up environment variables
 
 In the `.env` file set:
+
 - `PINECONE_API_KEY`
 - `PINECONE_ENV` (something like: us-east4-gcp)
 - `MEMORY_BACKEND=pinecone`
@@ -275,11 +280,10 @@ To switch to either, change the `MEMORY_BACKEND` env variable to the value that 
 
 1. View memory usage by using the `--debug` flag :)
 
-
 ## 🧠 Memory pre-seeding
 
 ```
-# python scripts/data_ingestion.py -h 
+# python scripts/data_ingestion.py -h
 usage: data_ingestion.py [-h] (--file FILE | --dir DIR) [--init] [--overlap OVERLAP] [--max_length MAX_LENGTH]
 
 Ingest a file or a directory with multiple files into memory. Make sure to set your .env before running this script.
@@ -295,20 +299,20 @@ options:
 # python scripts/data_ingestion.py --dir seed_data --init --overlap 200 --max_length 1000
 ```
 
-This script located at scripts/data_ingestion.py, allows you to ingest files into memory and pre-seed it before running Auto-GPT. 
+This script located at scripts/data_ingestion.py, allows you to ingest files into memory and pre-seed it before running Auto-GPT.
 
 Memory pre-seeding is a technique that involves ingesting relevant documents or data into the AI's memory so that it can use this information to generate more informed and accurate responses.
 
 To pre-seed the memory, the content of each document is split into chunks of a specified maximum length with a specified overlap between chunks, and then each chunk is added to the memory backend set in the .env file. When the AI is prompted to recall information, it can then access those pre-seeded memories to generate more informed and accurate responses.
 
-This technique is particularly useful when working with large amounts of data or when there is specific information that the AI needs to be able to access quickly. 
-By pre-seeding the memory, the AI can retrieve and use this information more efficiently, saving time, API call and improving the accuracy of its responses. 
+This technique is particularly useful when working with large amounts of data or when there is specific information that the AI needs to be able to access quickly.
+By pre-seeding the memory, the AI can retrieve and use this information more efficiently, saving time, API call and improving the accuracy of its responses.
 
-You could for example download the documentation of an API, a Github repository, etc. and ingest it into memory before running Auto-GPT. 
+You could for example download the documentation of an API, a Github repository, etc. and ingest it into memory before running Auto-GPT.
 
 ⚠️ If you use Redis as your memory, make sure to run Auto-GPT with the WIPE_REDIS_ON_START set to False in your .env file.
 
-⚠️For other memory backend, we currently forcefully wipe the memory when starting Auto-GPT. To ingest data with those memory backend, you can call the data_ingestion.py script anytime during an Auto-GPT run. 
+⚠️For other memory backend, we currently forcefully wipe the memory when starting Auto-GPT. To ingest data with those memory backend, you can call the data_ingestion.py script anytime during an Auto-GPT run.
 
 Memories will be available to the AI immediately as they are ingested, even if ingested while Auto-GPT is running.
 
